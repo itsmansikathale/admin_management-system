@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/authRoutes.js";
+import { protect, adminOnly } from "./middleware/authmiddleware.js";
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -17,8 +19,15 @@ app.get("/", (req, res) => {
   res.send("Server is running..");
 });
 
+app.get("/api/admin", protect, adminOnly, (req, res) => {
+  res.json({ message: "Welcome Admin" });
+});
+
 // routes
 app.use("/api/auth", authRoutes);
+
+// User Routes
+app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
