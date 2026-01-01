@@ -19,6 +19,24 @@ app.get("/", (req, res) => {
   res.send("Server is running..");
 });
 
+app.post("/api/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (email === "admin@gmail.com" && password === "12345") {
+    return res.json({
+      success: true,
+
+      user: {
+        email,
+        role: "admin",
+      },
+      token: "dummy-token",
+    });
+  }
+
+  return res.status(401).json({ message: "Invalid credentials" });
+});
+
 app.get("/api/admin", protect, adminOnly, (req, res) => {
   res.json({ message: "Welcome Admin" });
 });
