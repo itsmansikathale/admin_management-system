@@ -42,6 +42,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

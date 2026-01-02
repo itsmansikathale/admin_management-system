@@ -1,11 +1,17 @@
-import user from "../models/user.js";
+import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 
-// GET all users (Admin)
+// Read all users (Admin)
 
 export const getUsers = async (req, res) => {
   const users = await User.find().select("-password");
   res.json(users);
+};
+
+// READ ONE USER
+export const getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password");
+  if (!user) return res.status(404).json({ message: "User not found" });
 };
 
 // CREATE user
@@ -35,15 +41,21 @@ export const updateUser = async (req, res) => {
   if (!user) return res.status(404).json({ message: "User not found" });
 
   user.name = req.body.name || user.name;
+  user.email = req.body.email || user.email;
   user.role = req.body.role || user.role;
 
-  await user.save();
-  res.json(user);
+  const updatedUser = await user.save();
+
+  res.json(updatedUser);
 };
 
 // DELETE user
 
 export const deleteUser = async (req, res) => {
-  await User.findByIdAndDelete(req.params.id);
+  const user = await User.findById(req.params.id);
+
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  await user.deleteOne();
   res.json({ message: "User Deleted" });
 };

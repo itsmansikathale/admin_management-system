@@ -5,9 +5,16 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  getUserById,
 } from "../controllers/userController.js";
 
 const router = express.Router();
+
+router.get("/", protect, adminOnly, getUsers);
+router.get("/:id", protect, adminOnly, getUserById);
+router.post("/", protect, adminOnly, createUser);
+router.put("/:id", protect, adminOnly, updateUser);
+router.delete("/:id", protect, adminOnly, deleteUser);
 
 router.get("/profile", protect, (req, res) => {
   res.json({
@@ -17,15 +24,5 @@ router.get("/profile", protect, (req, res) => {
 });
 
 // Admin only routes
-
-router
-  .route("/")
-  .get(protect, adminOnly, getUsers)
-  .post(protect, adminOnly, createUser);
-
-router
-  .route("/:id")
-  .put(protect, adminOnly, updateUser)
-  .delete(protect, adminOnly, deleteUser);
 
 export default router;
