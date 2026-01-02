@@ -37,21 +37,16 @@ It demonstrates **fullstack skills** including authentication, role-based access
 |-----------|---------------------|
 | Frontend  | React, Vite, Tailwind CSS, Axios, React Router |
 | Backend   | Node.js, Express, MongoDB, JWT, Bcrypt, CORS |
-| Deployment| Vercel (Frontend), Render (Backend) |
+| Deployment| Vercel (Frontend), |
+
+---
+## Demo Credentials (For Testing)
+
+Admin Email: admin@test.com  
+Admin Password: 123456
+
 
 ---
 
-## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v16+ recommended)
-- npm or yarn
-- MongoDB Atlas account (or local MongoDB)
-
----
-
-### Clone Repository
-```bash
-git clone <your-repo-url>
-cd <repo-folder>
  
