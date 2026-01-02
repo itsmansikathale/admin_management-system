@@ -1,5 +1,11 @@
 import express from "express";
-import { protect } from "../middleware/authmiddleware.js";
+import { protect, adminOnly } from "../middleware/authMiddleware.js";
+import {
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -9,5 +15,17 @@ router.get("/profile", protect, (req, res) => {
     user: req.user,
   });
 });
+
+// Admin only routes
+
+router
+  .route("/")
+  .get(protect, adminOnly, getUsers)
+  .post(protect, adminOnly, createUser);
+
+router
+  .route("/:id")
+  .put(protect, adminOnly, updateUser)
+  .delete(protect, adminOnly, deleteUser);
 
 export default router;

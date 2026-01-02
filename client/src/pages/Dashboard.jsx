@@ -4,9 +4,9 @@ import { useAuth } from "../context/AuthContext";
 const Dashboard = () => {
   const { logout, user } = useAuth();
 
-  const testAdmin = async () => {
+  const testAdminAPI = async () => {
     try {
-      const res = await API.get("/api/admin");
+      const res = await API.get("/admin/test");
       alert(res.data.message);
     } catch (err) {
       console.error(err);
@@ -17,7 +17,11 @@ const Dashboard = () => {
   return (
     <>
       <h2>Welcome {user?.email}</h2>
-      <button onClick={testAdmin}>Test Admin API</button>
+
+      {/* this will show button only to the Admin */}
+      {user?.role === "admin" && (
+        <button onClick={testAdminAPI}>Test Admin API</button>
+      )}
       <button onClick={logout}>Logout</button>
     </>
   );

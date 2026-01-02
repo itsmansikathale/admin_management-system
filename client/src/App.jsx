@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import { AuthProvider } from "./context/AuthContext";
+import Users from "./pages/Users";
 
 function App() {
   return (
@@ -32,6 +33,15 @@ function App() {
           />
           {/* // fallback route (V.Imp) */}
           <Route path="*" element={<Navigate to="/" replace />} />
+
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Users />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
